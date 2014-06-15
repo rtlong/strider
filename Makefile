@@ -99,7 +99,13 @@ authors-list:
 release: test build authors-list
 	npm version minor
 
+# ====== DOCKER:
 
+docker-image:
+	docker build -t strider .
 
+docker-pull:
+	docker pull mongo
+	docker pull ubuntu
 
 .PHONY: test lint watch build less start-chromedriver

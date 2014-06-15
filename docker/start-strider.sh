@@ -1,6 +1,5 @@
 #!/bin/bash
 
-env
 if [ -n "$DB_URI" ]; then
   MONGODB_URI=${DB_URI}
 elif [ -z "$MONGODB_URI" ]; then
@@ -9,6 +8,16 @@ fi
 if [ -n "$MONGO_PORT" ]; then
   MONGODB_URI="mongodb://${MONGO_PORT#tcp://}/strider-foss"
 fi
-DB_URI=$MONGODB_URI
+export DB_URI=$MONGODB_URI
 # TODO: make this work with arbitrary plugin_* vars
-HOME=/home/strider SERVER_NAME=$SERVER_NAME SMTP_HOST=$SMTP_HOST SMTP_USER=$SMTP_USER SMTP_PASS=$SMTP_PASS SMTP_FROM=$SMTP_FROM PLUGIN_GITHUB_APP_ID=$PLUGIN_GITHUB_APP_ID PLUGIN_GITHUB_SECRET=$PLUGIN_GITHUB_SECRET DB_URI=$DB_URI NODE_ENV=production node bin/strider
+export SERVER_NAME=$SERVER_NAME 
+export SMTP_HOST=$SMTP_HOST 
+export SMTP_USER=$SMTP_USER 
+export SMTP_PASS=$SMTP_PASS 
+export SMTP_FROM=$SMTP_FROM 
+export PLUGIN_GITHUB_APP_ID=$PLUGIN_GITHUB_APP_ID 
+export PLUGIN_GITHUB_SECRET=$PLUGIN_GITHUB_SECRET 
+export NODE_ENV=production 
+env
+
+exec bin/strider $@

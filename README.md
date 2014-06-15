@@ -45,13 +45,21 @@ For more details, including features and more, check out the
 
 ## Docker Quickstart
 
-`docker pull niallo/strider`
+Build the image:
+```shell
+$ docker build -t strider .
+```
 
-For a fully self-contained and pre-built strider installation, check out
-the [Strider Trusted Build][pre-built].
+Start a MongoDB server container and use the Strider image to create a new user
+```shell
+$ docker run --name mongodb -d mongo
+$ docker run --link mongodb:mongo -it strider addUser
+```
 
-There's a walkthrough of setting it up [on our blog][blog-walkthrough].
-
+With the Mongo container still running in the background, run Strider:
+```shell
+$ docker run -p 3000:3000 --link mongodb:mongo -i strider
+```
 
 ## Running on Infrastructure
 
