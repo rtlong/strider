@@ -8,6 +8,8 @@ if [ -n "$MONGO_PORT" ]; then
   DB_URI="mongodb://${MONGO_PORT#tcp://}/strider-foss"
 fi
 
+export DB_URI
+
 # export DB_URI=$MONGODB_URI
 # TODO: make this work with arbitrary plugin_* vars
 
